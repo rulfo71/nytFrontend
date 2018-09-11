@@ -14,9 +14,9 @@ export class NewsService {
 
   private articlesUrl = 'https://localhost:5001/news';  // URL to web api
 
-  getNews(theme,begin_date,end_date): Observable<Article[]> {
+  getNews(theme,begin_date,end_date): Observable<string> {
     this.articlesUrl += "?theme=" + theme + "&begin_date=" + begin_date + "&end_date=" + end_date;
-    return this.http.get<Article[]>(this.articlesUrl);
+    return this.http.get<string>(this.articlesUrl);
   }
 
 }

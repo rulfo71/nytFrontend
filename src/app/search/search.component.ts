@@ -10,7 +10,7 @@ import { NewsService } from '../news.service';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  news: Article[];
+  news: string;
   theme: string;
   begin_date: string;
   end_date: string;
@@ -29,6 +29,7 @@ export class SearchComponent implements OnInit {
 
     this.newsService.getNews(this.theme,this.begin_date,this.end_date).subscribe(news => {
       this.news = news;
+      console.log(news);
     },
       newsError => {
         console.error("Error: " + newsError);
