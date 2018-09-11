@@ -3,11 +3,11 @@ import { Article } from '../article';
 import { NewsService } from '../news.service';
 
 @Component({
-  selector: 'app-inputs',
-  templateUrl: './inputs.component.html',
-  styleUrls: ['./inputs.component.css']
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.css']
 })
-export class InputsComponent implements OnInit {
+export class SearchComponent implements OnInit {
   news: Article[];
 
   constructor(
