@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Article } from '../article';
 import { NewsService } from '../news.service';
 
+
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -9,6 +11,9 @@ import { NewsService } from '../news.service';
 })
 export class SearchComponent implements OnInit {
   news: Article[];
+  theme: string;
+  begin_date: string;
+  end_date: string;
 
   constructor(
     private newsService: NewsService) { }
@@ -18,9 +23,11 @@ export class SearchComponent implements OnInit {
 
   getNews(): void {
     console.log('entre');
+    console.log(this.theme);
+    console.log(this.begin_date);
+    console.log(this.end_date);
 
-
-    this.newsService.getNews().subscribe(news => {
+    this.newsService.getNews(this.theme,this.begin_date,this.end_date).subscribe(news => {
       this.news = news;
     },
       newsError => {
