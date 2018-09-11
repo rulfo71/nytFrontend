@@ -1,0 +1,8 @@
+.input{
+    margin: 10pt;
+    padding: 10pt;
+}
+ 
+.inputsBox{
+    display: list-item;
+} 
