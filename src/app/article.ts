@@ -1,5 +1,18 @@
 export class Article{
-    title: string;
+    web_url: string;
     snippet: string;
-    url: string;
+    headline: Headline;
+    pub_date: number;
+    score: number;
+}
+
+export class Headline {
+    
+    main: string;
+    kicker: string;
+    content_kicker: string;
+    print_headline: string;
+    name: object;
+    seo: object;
+    sub: object;
 }

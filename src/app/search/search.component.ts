@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Article } from '../article';
+import {RootObj} from '../RootObj';
 import { NewsService } from '../news.service';
 
 
@@ -10,7 +11,7 @@ import { NewsService } from '../news.service';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  news: string;
+  news: Article[];
   theme: string;
   begin_date: string;
   end_date: string;
@@ -27,9 +28,10 @@ export class SearchComponent implements OnInit {
     console.log(this.begin_date);
     console.log(this.end_date);
 
-    this.newsService.getNews(this.theme,this.begin_date,this.end_date).subscribe(news => {
-      this.news = news;
-      console.log(news);
+    this.newsService.getNews(this.theme,this.begin_date,this.end_date).subscribe(rootObj => {
+      this.news = rootObj.response.docs;
+      console.log("..........");
+      console.log(this.news);
     },
       newsError => {
         console.error("Error: " + newsError);

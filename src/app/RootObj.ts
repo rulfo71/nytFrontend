@@ -15,7 +15,6 @@ export class Doc {
     headline: Headline;
     pub_date: number;
     score: number;
-
 }
 
 export class Headline {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Article } from './article';
+import { RootObj } from './RootObj';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
@@ -14,10 +14,12 @@ export class NewsService {
 
   private articlesUrl = 'https://localhost:5001/news';  // URL to web api
 
-  getNews(theme,begin_date,end_date): Observable<string> {
+  getNews(theme,begin_date,end_date): Observable<RootObj> {
     this.articlesUrl += "?theme=" + theme + "&begin_date=" + begin_date + "&end_date=" + end_date;
-    return this.http.get<string>(this.articlesUrl);
+    console.log("Desde el servicio: " + this.articlesUrl);
+    return this.http.get<RootObj>(this.articlesUrl);
   }
-
 }
 
+// const url = `${this.usersUrl}/${id}`;
+//     return this.http.get<User>(url).pipe();
