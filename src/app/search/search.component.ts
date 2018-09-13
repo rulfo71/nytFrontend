@@ -5,6 +5,7 @@ import { NewsService } from '../news.service';
 
 
 
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -28,6 +29,7 @@ export class SearchComponent implements OnInit {
     console.log(this.begin_date);
     console.log(this.end_date);
 
+
     this.newsService.getNews(this.theme,this.begin_date,this.end_date).subscribe(rootObj => {
       this.news = rootObj.response.docs;
       console.log("..........");
@@ -37,4 +39,8 @@ export class SearchComponent implements OnInit {
         console.error("Error: " + newsError);
       });
   }
+}
+
+export class Validator {
+  
 }

@@ -1,10 +1,10 @@
 <h2>Search whatever you want</h2>
-<span class="inputsBox">
-  <span class="text">Theme: </span><input [(ngModel)]="theme" id="theme" type="text" class="input" placeholder="Insert theme here">  <br>
-  <span class="text">Begin Date: </span><input [(ngModel)]="begin_date" id="begin_date" type="text" class="input" placeholder="Insert begin date here">  <br>
-  <span class="text">End Date: </span><input [(ngModel)]="end_date" id="end_date" type="text" class="input" placeholder="Insert end date here">  <br>
+<form class="inputsBox">
+  <span class="text">Theme: </span><input [(ngModel)]="theme" name="theme" type="text" class="input" placeholder="Insert theme here">  <br>
+  <span class="text">Begin Date: </span><input type="date" [(ngModel)]="begin_date" name="begin_date" class="input" value="2018-09-06" min="2016-01-01" max="2018-09-10">  <br>
+  <span class="text">End Date: </span><input type="date" [(ngModel)]="end_date" name="end_date" class="input" value="2016-09-10" min="2016-01-05" max="2018-09-10">  <br>
   <button class="input" (click)="getNews()">Search now!</button>
-</span>
+</form>
 
 <div>
   <ul>
