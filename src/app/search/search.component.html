@@ -8,7 +8,9 @@
     required> <br>
   <span class="text">End Date: </span>
   <input type="date" [(ngModel)]="end_date" name="end_date" class="input" value="2016-09-10" min="2016-01-05" max="2018-09-10"
-    required> <p [(ngModel)]="wrongDate" *ngIf="wrongDate" style="color:red">*End date must be greater than begin date </p> <br> 
+    required> 
+    <p [(ngModel)]="wrongDate" *ngIf="wrongDate" style="color:red">*End date must be greater than begin date </p>
+    <p [(ngModel)]="emptyData" *ngIf="emptyData" style="color:red">*You must complete all fields</p>  <br> 
 
   <button type="submit" class="btn btn-success input" [disabled]="!heroForm.form.valid">Submit</button>
 </form>

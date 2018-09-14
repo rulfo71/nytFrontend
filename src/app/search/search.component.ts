@@ -15,6 +15,7 @@ export class SearchComponent implements OnInit {
   begin_date: Date;
   end_date: Date;
   wrongDate: Boolean;
+  emptyData: Boolean;
 
   constructor(
     private newsService: NewsService) { }
@@ -28,28 +29,28 @@ export class SearchComponent implements OnInit {
     console.log(this.begin_date);
     console.log(this.end_date);
 
-    if (this.validations())
-
+    if (this.validations()) {
       this.newsService.getNews(this.searchTheme, this.begin_date, this.end_date).subscribe(rootObj => {
         this.news = rootObj.response.docs;
-        console.log("..........");
+        console.log('..........');
         console.log(this.news);
       },
         newsError => {
-          console.error("Error: " + newsError);
+          console.error('Error: ' + newsError);
         });
     }
-    validations() :Boolean{
-      //validate null or undefined
-      if (!this.searchTheme || !this.begin_date ||!this.end_date){        
-        return false;
-      }
-      if (this.begin_date > this.end_date){
-        console.log("End date must be greater than start date");
-        this.wrongDate = true;
-        return false;
-      }
-      return true;
-    }
   }
- 
+  validations(): Boolean {
+    // validate null or undefined
+    if (!this.searchTheme || !this.begin_date || !this.end_date) {
+      this.emptyData = true;
+      return false;
+    }
+    if (this.begin_date > this.end_date) {
+      console.log('End date must be greater than start date');
+      this.wrongDate = true;
+      return false;
+    }
+    return true;
+  }
+}
