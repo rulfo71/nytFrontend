@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Article } from '../article';
 import { RootObj } from '../RootObj';
 import { NewsService } from '../news.service';
-
-
-
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-search',
@@ -13,9 +11,10 @@ import { NewsService } from '../news.service';
 })
 export class SearchComponent implements OnInit {
   news: Article[];
-  theme: string;
+  searchTheme: string;
   begin_date: Date;
   end_date: Date;
+  wrongDate: Boolean;
 
   constructor(
     private newsService: NewsService) { }
@@ -25,12 +24,13 @@ export class SearchComponent implements OnInit {
 
   getNews(): void {
     console.log('entre');
-    console.log(this.theme);
+    console.log(this.searchTheme);
     console.log(this.begin_date);
     console.log(this.end_date);
-    if (Validator.validate(this.theme, this.begin_date, this.end_date)) {
 
-      this.newsService.getNews(this.theme, this.begin_date, this.end_date).subscribe(rootObj => {
+    if (this.validations())
+
+      this.newsService.getNews(this.searchTheme, this.begin_date, this.end_date).subscribe(rootObj => {
         this.news = rootObj.response.docs;
         console.log("..........");
         console.log(this.news);
@@ -39,19 +39,17 @@ export class SearchComponent implements OnInit {
           console.error("Error: " + newsError);
         });
     }
-  }
-}
-
-export class Validator {
-
-  static validate(theme, begin_date, end_date): Boolean {
-    if (theme == null || begin_date == null || end_date == null) {
-      console.log("Hay algun undefined");
-      return false;
+    validations() :Boolean{
+      //validate null or undefined
+      if (!this.searchTheme || !this.begin_date ||!this.end_date){        
+        return false;
+      }
+      if (this.begin_date > this.end_date){
+        console.log("End date must be greater than start date");
+        this.wrongDate = true;
+        return false;
+      }
+      return true;
     }
-
-    return true;
   }
-  // private validateUndefineds()
-
-}
+ 
