@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { RootObj } from './RootObj';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -19,18 +19,17 @@ export class NewsService {
     this.articlesUrl = 'https://localhost:5001/news';
     this.articlesUrl += '?theme=' + theme + '&begin_date=' + begin_date + '&end_date=' + end_date;
     console.log('Desde el servicio: ' + this.articlesUrl);
-    return this.http.get<RootObj>(this.articlesUrl);
-    /*..pipe(
-      catchError(this.handleError('getHeroes', []))
-    );*/
+    return this.http.get<RootObj>(this.articlesUrl).pipe(
+      catchError(this.handleError('getNews'))
+    );
   }
-  /*private  handleError<RootObj>(operation  =  'operation',  result?:  RootObj) {
+  private  handleError<T>(operation  =  'operation',  result?:  RootObj) {
     return  (error: RootObj):  Observable<RootObj>  =>  {
       console.error(error);
       alert('An error occured !');
       return  of(result  as  RootObj);
     }
-  }*/
+  }
 }
 
 // const url = `${this.usersUrl}/${id}`;
