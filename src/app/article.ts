@@ -4,6 +4,7 @@ export class Article{
     headline: Headline;
     pub_date: number;
     score: number;
+    isValidUrl: Boolean;
 }
 
 export class Headline {
