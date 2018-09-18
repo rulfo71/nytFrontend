@@ -8,19 +8,23 @@
     required> <br>
   <span class="text">End Date: </span>
   <input type="date" [(ngModel)]="end_date" name="end_date" class="input" value="2016-09-10" min="2016-01-05" max="2018-09-10"
-    required> 
-    <p [(ngModel)]="wrongDate" *ngIf="wrongDate" style="color:red">*End date must be greater than begin date </p>
-    <p [(ngModel)]="emptyData" *ngIf="emptyData" style="color:red">*You must complete all fields</p>  <br> 
+    required>
+  <p [(ngModel)]="wrongDate" *ngIf="wrongDate" style="color:red">*End date must be greater than begin date </p>
+  <p [(ngModel)]="emptyData" *ngIf="emptyData" style="color:red">*You must complete all fields</p> <br>
 
   <button type="submit" class="btn btn-success input" [disabled]="!heroForm.form.valid">Submit</button>
 </form>
+<p *ngIf="noNews">
+  There are no news for this topic
+</p>
 <div>
   <ul>
     <li class="article" *ngFor="let article of news">
       <h2>{{article.headline.main}}</h2>
       <h4>{{article.snippet}}</h4>
-      <a href="{{article.web_url}}">{{article.web_url}}</a>
-      <p *ngIf="article.isValidUrl"  style="color:red"> *Not Valid URL</p>
+      <p *ngIf="article.web_url == '' "> Url not available</p>
+      <a *ngIf="article.web_url != '' " href="{{article.web_url}}">{{article.web_url}}</a>
+      <p *ngIf="article.isValidUrl" style="color:red"> *Not Valid URL</p>
     </li>
   </ul>
 </div>

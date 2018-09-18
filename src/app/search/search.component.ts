@@ -4,6 +4,7 @@ import { RootObj } from '../RootObj';
 import { NewsService } from '../news.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { forEach } from '@angular/router/src/utils/collection';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class SearchComponent implements OnInit {
   end_date: Date;
   wrongDate: Boolean;
   emptyData: Boolean;
+  noNews: Boolean;
 
   constructor(
     private newsService: NewsService) { }
@@ -30,21 +32,31 @@ export class SearchComponent implements OnInit {
     console.log(this.searchTheme);
     console.log(this.begin_date);
     console.log(this.end_date);
+    this.noNews = false;
 
-    if (this.validations()) {
+    if (this.validateInputs()) {
 
       this.newsService.getNews(this.searchTheme, this.begin_date, this.end_date).subscribe(rootObj => {
 
         this.news = rootObj.response.docs;
-        this.checkValidUrl();
         console.log(this.news);
+        console.log("******");
+        console.log("******");
+        console.log("******");
+        console.log("******");
+        console.log(rootObj.response.meta.hits);
+        console.log("******");
+        console.log("******");
+        console.log("******");
+        console.log("******");
+        this.validations(rootObj);
       },
         newsError => {
           console.error('Error: ' + newsError);
         });
     }
   }
-  validations(): Boolean {
+  private validateInputs(): Boolean {
     // validate null or undefined
     if (!this.searchTheme || !this.begin_date || !this.end_date) {
       this.emptyData = true;
@@ -57,53 +69,18 @@ export class SearchComponent implements OnInit {
     }
     return true;
   }
-  private checkValidUrl() {
-
-    // this.news.forEach(article => {
-    //   console.log('..........');
-    //   console.log('..........');
-    //   console.log('..........');
-    //   console.log('..........');
-    //   console.log('..........');
-    //   console.log('..........');
-    //   //this.http.request(article.web_url).subscribe(response => this.friends = response.text());
-    //   //console.log(this.http.get(article.web_url).subscribe)
-
-    //   // console.log(this.http.get(article.web_url));
-    //   // var response = this.http.get(article.web_url);
-    //   // console.log(this.http.get(article.web_url).subscribe());
-    //   //var hc = new HttpResponse()
+  private validations(rootObj){
+    this.validate0news(rootObj);
+    this.validateNoURL(rootObj);
+  }
+  private validate0news(rootObj){
+    if (rootObj.response.meta.hits == 0){
+      this.noNews = true;
+    }
+  }
+  private validateNoURL(rootObj){
+    rootObj.response.docs.forEach(article => {
       
-    //   try {
-       
-    //     console.log("hawaii");
-    //     console.log("hawaii");
-    //     console.log("hawaii");
-    //     console.log("hawaii");
-    //     console.log("hawaii");
-    //     console.log("hawaii");
-    //   }
-    //   catch (HttpRequestException) {
-    //     console.log("alojaaa");
-    //     console.log("alojaaa");
-    //     console.log("alojaaa");
-    //     console.log("alojaaa");
-    //     console.log("alojaaa");
-    //   }
-    //   console.log('..........');
-    //   console.log('..........');
-    //   console.log('..........');
-    //   console.log('..........');
-    //   console.log('..........');
-    //   console.log("*******");
-    //   console.log("*******");
-    //   console.log("*******");
-
-    // // //   //console.log(result);
-    // // //   console.log("*******");
-    // // //   console.log("*******");
-    // // //   console.log("*******");
-
-    // });
+    });
   }
 }

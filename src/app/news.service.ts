@@ -25,7 +25,6 @@ export class NewsService {
   }
   private  handleError<T>(operation  =  'operation',  result?:  RootObj) {
     return  (error: RootObj):  Observable<RootObj>  =>  {
-      console.error(error);
       alert('Oops! This is embarassing. Our server is not working. Please try again later.');
       return  of(result  as  RootObj);
     }
