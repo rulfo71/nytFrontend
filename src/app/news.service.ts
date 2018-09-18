@@ -26,6 +26,6 @@ export class NewsService {
     return  (error: RootObj):  Observable<RootObj>  =>  {
       alert('Oops! This is embarassing. Our server is not working. Please try again later.');
       return  of(result  as  RootObj);
-    }
+    };
   }
 }
