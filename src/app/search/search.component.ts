@@ -15,19 +15,28 @@ export class SearchComponent implements OnInit {
   wrongDate: Boolean;
   emptyData: Boolean;
   noNews: Boolean;
+  showList: Boolean;
+  isLoading: Boolean;
 
   constructor(
     private newsService: NewsService) { }
 
   ngOnInit() {
+    this.noNews = false;
+    this.wrongDate = false;
+    this.showList = true;
+    this.isLoading = false;
   }
 
   getNews(): void {
     if (this.validateInputs()) {
-    
-    this.newsService.getNews(this.searchTheme, this.begin_date, this.end_date).subscribe(rootObj => {
-        this.noNews = false;
-        this.wrongDate = false;
+      
+      this.isLoading = true;
+      this.showList = true;
+      this.noNews = false;
+      this.wrongDate = false;
+      this.newsService.getNews(this.searchTheme, this.begin_date, this.end_date).subscribe(rootObj => {
+        this.isLoading = false;
 
         this.news = rootObj.response.docs;
         this.validate0news(rootObj);
@@ -45,6 +54,7 @@ export class SearchComponent implements OnInit {
     }
     if (this.begin_date > this.end_date) {
       this.wrongDate = true;
+      this.showList = false;
       return false;
     }
     return true;
@@ -53,6 +63,7 @@ export class SearchComponent implements OnInit {
   private validate0news(rootObj){
     if (rootObj.response.meta.hits == 0){
       this.noNews = true;
+      this.showList = false;
     }
   }
 

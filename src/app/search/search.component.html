@@ -12,12 +12,13 @@
   <p [(ngModel)]="wrongDate" *ngIf="wrongDate" style="color:red">*End date must be greater than begin date </p>
   <p [(ngModel)]="emptyData" *ngIf="emptyData" style="color:red">*You must complete all fields</p> <br>
 
-  <button type="submit" class="btn btn-success input" [disabled]="!heroForm.form.valid">Submit</button>
+  <button type="submit" class="btn btn-success input" >Submit</button>
 </form>
 <p *ngIf="noNews">
   There are no news for this topic
 </p>
-<div>
+<img *ngIf="isLoading" src="../../assets/Pacman.gif" alt="">
+<div *ngIf="showList">
   <ul>
     <li class="article" *ngFor="let article of news">
       <h2>{{article.headline.main}}</h2>
