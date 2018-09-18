@@ -28,9 +28,6 @@ export class NewsService {
       console.error(error);
       alert('Oops! This is embarassing. Our server is not working. Please try again later.');
       return  of(result  as  RootObj);
-    }
+    };
   }
 }
-
-// const url = `${this.usersUrl}/${id}`;
-//     return this.http.get<User>(url).pipe();
