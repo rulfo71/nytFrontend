@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Article } from '../article';
-import { RootObj } from '../RootObj';
 import { NewsService } from '../news.service';
-import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { forEach } from '@angular/router/src/utils/collection';
-
 
 @Component({
   selector: 'app-search',
@@ -28,31 +23,17 @@ export class SearchComponent implements OnInit {
   }
 
   getNews(): void {
-    console.log('entre');
-    console.log(this.searchTheme);
-    console.log(this.begin_date);
-    console.log(this.end_date);
-    this.noNews = false;
-
     if (this.validateInputs()) {
-
-      this.newsService.getNews(this.searchTheme, this.begin_date, this.end_date).subscribe(rootObj => {
+    
+    this.newsService.getNews(this.searchTheme, this.begin_date, this.end_date).subscribe(rootObj => {
+        this.noNews = false;
+        this.wrongDate = false;
 
         this.news = rootObj.response.docs;
-        console.log(this.news);
-        console.log("******");
-        console.log("******");
-        console.log("******");
-        console.log("******");
-        console.log(rootObj.response.meta.hits);
-        console.log("******");
-        console.log("******");
-        console.log("******");
-        console.log("******");
-        this.validations(rootObj);
+        this.validate0news(rootObj);
       },
         newsError => {
-          console.error('Error: ' + newsError);
+           console.error('Error: ' + newsError);
         });
     }
   }
@@ -63,24 +44,16 @@ export class SearchComponent implements OnInit {
       return false;
     }
     if (this.begin_date > this.end_date) {
-      console.log('End date must be greater than start date');
       this.wrongDate = true;
       return false;
     }
     return true;
   }
-  private validations(rootObj){
-    this.validate0news(rootObj);
-    this.validateNoURL(rootObj);
-  }
+
   private validate0news(rootObj){
     if (rootObj.response.meta.hits == 0){
       this.noNews = true;
     }
   }
-  private validateNoURL(rootObj){
-    rootObj.response.docs.forEach(article => {
-      
-    });
-  }
+
 }

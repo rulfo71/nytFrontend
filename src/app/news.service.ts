@@ -13,12 +13,11 @@ export class NewsService {
   constructor(private http: HttpClient) {
   }
 
-  private articlesUrl = 'https://localhost:5001/news';  // URL to web api
+  private articlesUrl = 'https://localhost:5001/news';  
 
   getNews(theme, begin_date, end_date): Observable<RootObj> {
     this.articlesUrl = 'https://localhost:5001/news';
     this.articlesUrl += '?theme=' + theme + '&begin_date=' + begin_date + '&end_date=' + end_date;
-    console.log('Desde el servicio: ' + this.articlesUrl);
     return this.http.get<RootObj>(this.articlesUrl).pipe(
       catchError(this.handleError('getNews'))
     );
@@ -30,6 +29,3 @@ export class NewsService {
     }
   }
 }
-
-// const url = `${this.usersUrl}/${id}`;
-//     return this.http.get<User>(url).pipe();
