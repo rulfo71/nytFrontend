@@ -24,7 +24,7 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.noNews = false;
     this.wrongDate = false;
-    this.showList = true;
+    // this.showList = true;
     this.isLoading = false;
     this.emptyData = false;
   }
@@ -37,10 +37,10 @@ export class SearchComponent implements OnInit {
       this.isLoading = true;
       this.showList = true;
       this.emptyData = false;
-      
-      
+
       this.newsService.getNews(this.searchTheme, this.begin_date, this.end_date).subscribe(articles => {
         this.isLoading = false;
+        this.showList = true;
 
         this.news = articles;
         this.validate0news(articles);
@@ -49,23 +49,37 @@ export class SearchComponent implements OnInit {
   }
   private validateInputs(): Boolean {
     // validate null or undefined
-    if (!this.searchTheme || !this.begin_date || !this.end_date) {
+    if (this.validateNullOrUndefined()) {
+      if (this.hasValidDates()) {
+        this.wrongDate = false;
+      }
+      this.showList = false;
       this.emptyData = true;
       return false;
     }
-    if (this.begin_date > this.end_date) {
+    if (!this.hasValidDates()) {
+      if (!this.validateNullOrUndefined){
+        this.emptyData = false;
+      }
       this.wrongDate = true;
       this.showList = false;
+      this.noNews = false;
       return false;
     }
     return true;
   }
 
-  private validate0news(articles){
-    if (articles.length == 0){
+  private validateNullOrUndefined() {
+    return (!this.searchTheme || !this.begin_date || !this.end_date)
+  }
+  private hasValidDates() {
+    return (this.begin_date < this.end_date)
+  }
+  private validate0news(articles) {
+    if (articles.length == 0) {
       this.noNews = true;
-       this.showList = false;
-     }
-   }
+      this.showList = false;
+    }
+  }
 
 }

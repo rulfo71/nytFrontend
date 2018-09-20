@@ -18,14 +18,4 @@
   There are no news for this topic
 </p>
 <img *ngIf="isLoading" src="../../assets/Pacman.gif" alt="">
-<div *ngIf="showList">
-  <ul>
-    <li class="article" *ngFor="let article of news">
-      <h2>{{article.headline.main}}</h2>
-      <h4>{{article.snippet}}</h4>
-      <p *ngIf="article.web_url == '' "> Url not available</p>
-      <a *ngIf="article.web_url != '' " href="{{article.web_url}}">{{article.web_url}}</a>
-      <p *ngIf="article.isValidUrl" class="error">*Not Valid URL</p>
-    </li>
-  </ul>
-</div>
+<app-search-results [news]="news" *ngIf="showList"></app-search-results>

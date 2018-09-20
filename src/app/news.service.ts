@@ -25,7 +25,6 @@ export class NewsService {
   }
   private  handleError<T>(operation  =  'operation',  result?: Article[]) {
     return  (error: Article[]):  Observable<Article[]>  =>  {
-
       alert('Oops! This is embarassing. Our server is not working. Please try again later.');
       return  of(result  as  Article[]);
     };
