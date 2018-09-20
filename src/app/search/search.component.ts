@@ -26,26 +26,24 @@ export class SearchComponent implements OnInit {
     this.wrongDate = false;
     this.showList = true;
     this.isLoading = false;
+    this.emptyData = false;
   }
 
   getNews(): void {
     if (this.validateInputs()) {
-      this.isLoading = true;
-      this.showList = true;
+
       this.noNews = false;
       this.wrongDate = false;
+      this.isLoading = true;
+      this.showList = true;
+      this.emptyData = false;
+      
+      
       this.newsService.getNews(this.searchTheme, this.begin_date, this.end_date).subscribe(articles => {
         this.isLoading = false;
 
         this.news = articles;
-        console.log("*****")
-        console.log("*****")
-        console.log("*****")
-        console.log(articles);
-        console.log("*****")
-        console.log("*****")
-        console.log("*****")
-        //this.validate0news(articles);
+        this.validate0news(articles);
       });
     }
   }
@@ -63,11 +61,11 @@ export class SearchComponent implements OnInit {
     return true;
   }
 
-  // private validate0news(article){
-  //   if (rootObj.response.meta.hits == 0){
-  //     this.noNews = true;
-  //     this.showList = false;
-  //   }
-  // }
+  private validate0news(articles){
+    if (articles.length == 0){
+      this.noNews = true;
+       this.showList = false;
+     }
+   }
 
 }
