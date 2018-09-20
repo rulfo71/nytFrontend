@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Article } from '../article';
+import { Article } from '../Models/Article';
 import { NewsService } from '../news.service';
 
 @Component({
@@ -30,20 +30,23 @@ export class SearchComponent implements OnInit {
 
   getNews(): void {
     if (this.validateInputs()) {
-      
       this.isLoading = true;
       this.showList = true;
       this.noNews = false;
       this.wrongDate = false;
-      this.newsService.getNews(this.searchTheme, this.begin_date, this.end_date).subscribe(rootObj => {
+      this.newsService.getNews(this.searchTheme, this.begin_date, this.end_date).subscribe(articles => {
         this.isLoading = false;
 
-        this.news = rootObj.response.docs;
-        this.validate0news(rootObj);
-      },
-        newsError => {
-           console.error('Error: ' + newsError);
-        });
+        this.news = articles;
+        console.log("*****")
+        console.log("*****")
+        console.log("*****")
+        console.log(articles);
+        console.log("*****")
+        console.log("*****")
+        console.log("*****")
+        //this.validate0news(articles);
+      });
     }
   }
   private validateInputs(): Boolean {
@@ -60,11 +63,11 @@ export class SearchComponent implements OnInit {
     return true;
   }
 
-  private validate0news(rootObj){
-    if (rootObj.response.meta.hits == 0){
-      this.noNews = true;
-      this.showList = false;
-    }
-  }
+  // private validate0news(article){
+  //   if (rootObj.response.meta.hits == 0){
+  //     this.noNews = true;
+  //     this.showList = false;
+  //   }
+  // }
 
 }

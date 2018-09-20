@@ -9,8 +9,8 @@
   <span class="text">End Date: </span>
   <input type="date" [(ngModel)]="end_date" name="end_date" class="input" value="2016-09-10" min="2016-01-05" max="2018-09-10"
     required>
-  <p [(ngModel)]="wrongDate" *ngIf="wrongDate" style="color:red">*End date must be greater than begin date </p>
-  <p [(ngModel)]="emptyData" *ngIf="emptyData" style="color:red">*You must complete all fields</p> <br>
+  <p [(ngModel)]="wrongDate" *ngIf="wrongDate" class="error">*End date must be greater than begin date </p>
+  <p [(ngModel)]="emptyData" *ngIf="emptyData" class="error">*You must complete all fields</p> <br>
 
   <button type="submit" class="btn btn-success input" >Submit</button>
 </form>
@@ -25,7 +25,7 @@
       <h4>{{article.snippet}}</h4>
       <p *ngIf="article.web_url == '' "> Url not available</p>
       <a *ngIf="article.web_url != '' " href="{{article.web_url}}">{{article.web_url}}</a>
-      <p *ngIf="article.isValidUrl" style="color:red"> *Not Valid URL</p>
+      <p *ngIf="article.isValidUrl" class="error">*Not Valid URL</p>
     </li>
   </ul>
 </div>
