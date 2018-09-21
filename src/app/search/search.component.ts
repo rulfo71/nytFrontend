@@ -24,14 +24,12 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.noNews = false;
     this.wrongDate = false;
-    // this.showList = true;
     this.isLoading = false;
     this.emptyData = false;
   }
 
   getNews(): void {
     if (this.validateInputs()) {
-
       this.noNews = false;
       this.wrongDate = false;
       this.isLoading = true;
@@ -69,7 +67,7 @@ export class SearchComponent implements OnInit {
     return true;
   }
 
-  private validateNullOrUndefined() {
+  public validateNullOrUndefined() {
     return (!this.searchTheme || !this.begin_date || !this.end_date)
   }
   private hasValidDates() {
