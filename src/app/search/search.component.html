@@ -9,13 +9,15 @@
   <span class="text">End Date: </span>
   <input type="date" [(ngModel)]="end_date" name="end_date" class="input" value="2016-09-10" min="2016-01-05" max="2018-09-10"
     required>
-  <p [(ngModel)]="wrongDate" *ngIf="wrongDate" class="error">*End date must be greater than begin date </p>
-  <p [(ngModel)]="emptyData" *ngIf="emptyData" class="error">*You must complete all fields</p> <br>
+  <p [(ngModel)]="wrongDate" name="wrongDate" *ngIf="validator.InvalidDates(begin_date, end_date)" class="error">*End date must be greater than begin date </p>
+  <p [(ngModel)]="emptyData" name="emptyData" *ngIf="validator.EmptyData(searchTheme, begin_date, end_date)" class="error">*You must complete all fields</p> <br>
 
-  <button type="submit" class="btn btn-success input" >Submit</button>
+  <button [(ngModel)]="submitButton" name="submitButton" *ngIf="validator.everythingOk(searchTheme,begin_date,end_date)"  type="submit" class="btn btn-success input" >Submit</button>
+  <!-- <button type="submit" class="btn btn-success input" >Submit</button> -->
 </form>
 <p *ngIf="noNews">
   There are no news for this topic
 </p>
 <img *ngIf="isLoading" src="../../assets/Pacman.gif" alt="">
-<app-search-results [news]="news" *ngIf="showList"></app-search-results>
+<!-- <app-search-results [news]="news" *ngIf="showList"></app-search-results> -->
+<app-search-results [news]="news"></app-search-results>

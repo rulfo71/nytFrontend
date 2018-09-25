@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Article } from '../Models/Article';
+import { SearchValidator } from '../Models/SearchValidator';
 import { NewsService } from '../news.service';
 
 @Component({
@@ -12,8 +13,7 @@ export class SearchComponent implements OnInit {
   searchTheme: string;
   begin_date: Date;
   end_date: Date;
-  wrongDate: Boolean;
-  emptyData: Boolean;
+  validator: SearchValidator;
   noNews: Boolean;
   showList: Boolean;
   isLoading: Boolean;
@@ -22,62 +22,25 @@ export class SearchComponent implements OnInit {
     private newsService: NewsService) { }
 
   ngOnInit() {
-    this.noNews = false;
-    this.wrongDate = false;
-    this.isLoading = false;
-    this.emptyData = false;
+    this.validator = new SearchValidator();
+    this.showList = true;
   }
 
   getNews(): void {
-    if (this.validateInputs()) {
-      this.noNews = false;
-      this.wrongDate = false;
-      this.isLoading = true;
-      this.showList = true;
-      this.emptyData = false;
-
+    this.isLoading = true;
+    this.showList = false;
       this.newsService.getNews(this.searchTheme, this.begin_date, this.end_date).subscribe(articles => {
         this.isLoading = false;
         this.showList = true;
-
         this.news = articles;
         this.validate0news(articles);
+        // this.validator.validate0news(articles);
       });
     }
-  }
-  private validateInputs(): Boolean {
-    // validate null or undefined
-    if (this.validateNullOrUndefined()) {
-      if (this.hasValidDates()) {
-        this.wrongDate = false;
-      }
-      this.showList = false;
-      this.emptyData = true;
-      return false;
-    }
-    if (!this.hasValidDates()) {
-      if (!this.validateNullOrUndefined){
-        this.emptyData = false;
-      }
-      this.wrongDate = true;
-      this.showList = false;
-      this.noNews = false;
-      return false;
-    }
-    return true;
-  }
-
-  public validateNullOrUndefined() {
-    return (!this.searchTheme || !this.begin_date || !this.end_date)
-  }
-  private hasValidDates() {
-    return (this.begin_date < this.end_date)
-  }
-  private validate0news(articles) {
+  validate0news(articles) {
     if (articles.length == 0) {
       this.noNews = true;
       this.showList = false;
     }
   }
-
 }
