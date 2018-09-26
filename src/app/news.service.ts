@@ -25,11 +25,11 @@ export class NewsService {
   }
   private handleError<T>(operation = 'operation', result?: Article[]) {
     return (error: HttpErrorResponse): Observable<Article[]> => {
-      console.log("***")
-      console.log("***")
-      console.log(console.log(error.status));
-      console.log("***")
-      console.log("***")
+      // console.log("***")
+      // console.log("***")
+      // console.log(console.log(error.status));
+      // console.log("***")
+      // console.log("***")
       this.validateErrors(error.status);
 
       return of(result as Article[]);

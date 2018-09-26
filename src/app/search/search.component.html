@@ -13,7 +13,6 @@
   <p [(ngModel)]="emptyData" name="emptyData" *ngIf="validator.EmptyData(searchTheme, begin_date, end_date)" class="error">*You must complete all fields</p> <br>
 
   <button [(ngModel)]="submitButton" name="submitButton" *ngIf="validator.everythingOk(searchTheme,begin_date,end_date)"  type="submit" class="btn btn-success input" >Submit</button>
-  <!-- <button type="submit" class="btn btn-success input" >Submit</button> -->
 </form>
 <p *ngIf="noNews">
   There are no news for this topic
