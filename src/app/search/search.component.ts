@@ -34,7 +34,6 @@ export class SearchComponent implements OnInit {
         this.showList = true;
         this.news = articles;
         this.validate0news(articles);
-        // this.validator.validate0news(articles);
       });
     }
   validate0news(articles) {

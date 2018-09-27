@@ -10,7 +10,7 @@
   <input type="date" [(ngModel)]="end_date" name="end_date" class="input" value="2016-09-10" min="2016-01-05" max="2018-09-10"
     required>
   <p [(ngModel)]="wrongDate" name="wrongDate" *ngIf="validator.InvalidDates(begin_date, end_date)" class="error">*End date must be greater than begin date </p>
-  <p [(ngModel)]="emptyData" name="emptyData" *ngIf="validator.EmptyData(searchTheme, begin_date, end_date)" class="error">*You must complete all fields</p> <br>
+  <p [(ngModel)]="emptyData" name="emptyData"  *ngIf="validator.EmptyData(searchTheme, begin_date, end_date)" class="error">*You must complete all fields</p> <br>
 
   <button [(ngModel)]="submitButton" name="submitButton" *ngIf="validator.everythingOk(searchTheme,begin_date,end_date)"  type="submit" class="btn btn-success input" >Submit</button>
 </form>
