@@ -24,6 +24,7 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.validator = new SearchValidator();
     this.showList = true;
+    this.searchTheme="";
   }
 
   getNews(): void {

@@ -16,9 +16,8 @@ export class NewsService {
   }
 
   getNews(theme, begin_date, end_date): Observable<Article[]> {
-   // environment.articlesUrl = 'https://localhost:5001/news'; //esto es porque sino se pone dos veces 
+    //environment.articlesUrl = 'https://localhost:5001/news'; //esto es porque sino se pone dos veces 
     environment.articlesUrl += `?theme=${theme}&begin_date=${begin_date}&end_date=${end_date}`;
-
     return this.http.get<Article[]>(environment.articlesUrl).pipe(
       catchError(this.handleError('getNews'))
     );

@@ -14,7 +14,7 @@ export class SearchValidator implements OnInit {
     public EmptyData(searchTheme: string, begin_date: Date, end_date: Date): Boolean {
         return (!searchTheme || !begin_date || !end_date);
     }
-    public everythingOk(searchTheme: string, begin_date: Date, end_date: Date): Boolean {
+    public EverythingOk(searchTheme: string, begin_date: Date, end_date: Date): Boolean {
         return (!this.InvalidDates(begin_date, end_date) && !this.EmptyData(searchTheme, begin_date, end_date));
     }
 
