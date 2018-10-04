@@ -14,15 +14,14 @@ export class NewsService {
   }
 
   getNews(theme, begin_date, end_date): Observable<Article[]> {
-    //environment.articlesUrl = 'https://localhost:5001/news'; //esto es porque sino se pone dos veces 
-    environment.articlesUrl += `?theme=${theme}&begin_date=${begin_date}&end_date=${end_date}`;
-    return this.http.get<Article[]>(environment.articlesUrl).pipe(
+    var parameters = `?theme=${theme}&begin_date=${begin_date}&end_date=${end_date}`;
+    return this.http.get<Article[]>(environment.articlesUrl + parameters).pipe(
       catchError(this.handleError('getNews'))
     );
   }
   private handleError<T>(operation = 'operation', result?: Article[]) {
     return (error: HttpErrorResponse): Observable<Article[]> => {
-      this.validateErrors(error.status);
+      this.validateErrors(error.status); 
       return of(result as Article[]);
     };
   }
